@@ -14,7 +14,8 @@ class App extends Component {
     super(props)
     this.state={
       numero: 0,
-      botao: 'Iniciar'
+      botao: 'Iniciar',
+      ultimo: null
     };
     
     //Variavel do timer do relogio.
@@ -42,7 +43,10 @@ class App extends Component {
   parar(){
     clearInterval(this.timer);
     this.timer = null;
-    this.setState({numero: 0.0})
+    this.setState({
+      ultimo: this.state.numero,
+      numero: 0.0
+    })
     if(this.state.botao = 'Pausar'){
       this.setState({botao: 'Iniciar'})
     }
@@ -64,6 +68,13 @@ class App extends Component {
           <TouchableOpacity style={styles.btn} onPress={this.parar}>
             <Text style={styles.btnText}>Parar</Text>
           </TouchableOpacity>
+
+
+        </View>
+        <View style={styles.areaUltimo}>
+          <Text style={styles.txtTempo}>
+            {this.state.ultimo > 0 ? 'Ultimo tempo:' + this.state.ultimo.toFixed(1) + 's' : ''}
+          </Text>
         </View>
 
       </View>
@@ -107,7 +118,16 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: '#FFF',
     backgroundColor: '#40E0D0'
+  },
+  areaUltimo:{
+    marginTop: 40,
+  },
+  txtTempo:{
+    fontSize:25,
+    fontStyle:'italic',
+    color:'#FFF'
   }
+
 })
 
 export default App;
